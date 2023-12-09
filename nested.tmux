@@ -11,6 +11,9 @@ if [ -z "$up_keybind" ]; then up_keybind='F2'; fi
 
 up_recursive_keybind="$(tmux show-option -gqv @nested_up_recursive_keybind)"
 if [ -z "$up_recursive_keybind" ]; then up_recursive_keybind='F3'; fi
+
+inactive_status_style="$(tmux show-option -gqv @nested_inactive_status_style)"
+if [ -z "$inactive_status_style" ]; then inactive_status_style='fg=colour245,bg=colour238'; fi
 # <<< Keybinds and default values
 
 NESTED_COUNTER_ENV_NAME='NESTED_COUNTER'
@@ -21,7 +24,7 @@ tmux bind -n "$down_keybind" \
 "set-environment \"$NESTED_COUNTER_ENV_NAME\" 1 ; "\
 "set key-table \"$NESTED_INACTIVE_TABLE_NAME\" ; "\
 'set prefix None ; '\
-'set status-style "fg=colour245,bg=colour238"'
+"set status-style \"$inactive_status_style\""
 tmux bind -T "$NESTED_INACTIVE_TABLE_NAME" "$down_keybind" \
 "run-shell 'tmux set-environment \"$NESTED_COUNTER_ENV_NAME\" \$(( \$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2) + 1 ))' ; "\
 "send-keys \"$down_keybind\""
