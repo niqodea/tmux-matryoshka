@@ -67,6 +67,8 @@ set -g @nested_up_keybind 'M-u'
 set -g @nested_up_recursive_keybind 'M-U'
 # status style of inactive tmux
 set -g @nested_inactive_status_style 'fg=colour245,bg=colour238'
+# The target style or config option to change. Deafult is 'status-style'
+set -g @nested_inactive_status_style_target 'status-style'
 ```
 
 Include them in your `.tmux.conf` before running the setup.
