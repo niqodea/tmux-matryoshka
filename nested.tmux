@@ -17,7 +17,6 @@ if [ -z "$inactive_status_style" ]; then inactive_status_style='fg=colour245,bg=
 
 status_style_option="$(tmux show-option -gqv @nested_status_style_option)"
 if [ -z "$status_style_option" ]; then status_style_option='status-style'; fi
-
 # <<< Keybinds and default values
 
 NESTED_COUNTER_ENV_NAME='NESTED_COUNTER'
