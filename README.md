@@ -68,8 +68,8 @@ set -g @nested_up_recursive_keybind 'M-U'
 # status style of inactive tmux
 set -g @nested_inactive_status_style 'fg=colour245,bg=colour238'
 
-# The option for the style of the status line
-# Set if you rely on something other than the default 'status-style' option for it
+# name of the option for the style of the status line
+# set if you rely on something other than the default 'status-style' option for it
 set -g @nested_status_style_option 'my-status-style'
 ```
 
