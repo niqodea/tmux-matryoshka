@@ -14,6 +14,9 @@ if [ -z "$up_recursive_keybind" ]; then up_recursive_keybind='F3'; fi
 
 inactive_status_style="$(tmux show-option -gqv @nested_inactive_status_style)"
 if [ -z "$inactive_status_style" ]; then inactive_status_style='fg=colour245,bg=colour238'; fi
+
+status_style_option="$(tmux show-option -gqv @nested_status_style_option)"
+if [ -z "$status_style_option" ]; then status_style_option='status-style'; fi
 # <<< Keybinds and default values
 
 NESTED_COUNTER_ENV_NAME='NESTED_COUNTER'
@@ -24,7 +27,7 @@ tmux bind -n "$down_keybind" \
 "set-environment \"$NESTED_COUNTER_ENV_NAME\" 1 ; "\
 "set key-table \"$NESTED_INACTIVE_TABLE_NAME\" ; "\
 'set prefix None ; '\
-"set status-style \"$inactive_status_style\""
+"set \"$status_style_option\" \"$inactive_status_style\""
 tmux bind -T "$NESTED_INACTIVE_TABLE_NAME" "$down_keybind" \
 "run-shell 'tmux set-environment \"$NESTED_COUNTER_ENV_NAME\" \$(( \$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2) + 1 ))' ; "\
 "send-keys \"$down_keybind\""
@@ -35,7 +38,7 @@ tmux bind -n "$up_keybind" \
 tmux bind -T "$NESTED_INACTIVE_TABLE_NAME" "$up_keybind" \
 "run-shell 'tmux set-environment \"$NESTED_COUNTER_ENV_NAME\" \$(( \$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2) - 1 ))' ; "\
 "if-shell '[ \"\$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2)\" -eq 0 ]' "\
-"'set-environment -u \"$NESTED_COUNTER_ENV_NAME\" ; set -u prefix ; set -u key-table ; set -u status-style' "\
+"'set-environment -u \"$NESTED_COUNTER_ENV_NAME\" ; set -u prefix ; set -u key-table ; set -u \"$status_style_option\"' "\
 "'send-keys \"$up_keybind\"'"
 
 # Up recursive: enable all tmux instances recursively
@@ -47,7 +50,7 @@ tmux bind -T "$NESTED_INACTIVE_TABLE_NAME" "$up_recursive_keybind" \
 "set-environment -u \"$NESTED_COUNTER_ENV_NAME\" ; "\
 'set -u key-table ; '\
 'set -u prefix ; '\
-'set -u status-style'
+"set -u \"$status_style_option\""
 
 # Note: `$(tmux show-environment NESTED_COUNTER | cut -d = -f 2)` is the simplest way to retrieve the
 # value of NESTED_COUNTER, for some reason
