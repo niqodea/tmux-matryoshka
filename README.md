@@ -1,4 +1,4 @@
-# tmux-nested
+# tmux-matryoshka
 
 Plugin for nested tmux workflows. A [tmux-suspend](https://github.com/MunifTanjim/tmux-suspend) alternative that supports arbitrary levels of nesting.
 
@@ -10,7 +10,7 @@ You use tmux for workflows on both your local and non-local machines and you wou
 
 ### Solution
 
-Use tmux-nested to temporarily disable the outer, local tmux and forget about it. All tmux keybinds are now forwarded to the remote, nested tmux instance. You can repeat this process if you need to communicate with other furtherly nested tmux instance, be it local or remote.[^1]
+Use tmux-matryoshka to temporarily disable the outer, local tmux and forget about it. All tmux keybinds are now forwarded to the remote, nested tmux instance. You can repeat this process if you need to communicate with other furtherly nested tmux instance, be it local or remote.[^1]
 
 When needed, you can easily re-enable the disabled tmux instances in the reverse order they were disabled.
 
@@ -21,7 +21,7 @@ When needed, you can easily re-enable the disabled tmux instances in the reverse
 Add this repository as a [TPM](https://github.com/tmux-plugins/tpm) plugin in your `.tmux.conf` file:
 
 ```conf
-set -g @plugin 'niqodea/tmux-nested'
+set -g @plugin 'niqodea/tmux-matryoshka'
 ```
 
 Press `prefix + I` in Tmux environment to install it.
@@ -31,13 +31,13 @@ Press `prefix + I` in Tmux environment to install it.
 Clone this repository:
 
 ```bash
-git clone https://github.com/niqodea/tmux-nested.git ~/.tmux/plugins/tmux-nested
+git clone https://github.com/niqodea/tmux-matryoshka.git ~/.tmux/plugins/tmux-matryoshka
 ```
 
 Add this line to your `.tmux.conf` file:
 
 ```conf
-run-shell ~/.tmux/plugins/tmux-nested/nested.tmux
+run-shell ~/.tmux/plugins/tmux-matryoshka/matryoshka.tmux
 ```
 
 Reload tmux configuration file with:
@@ -60,17 +60,17 @@ The following configuration options are available:
 
 ```conf
 # keybind to disable outer-most active tmux
-set -g @nested_down_keybind 'M-d'
+set -g @matryoshka_down_keybind 'M-d'
 # keybind to enable inner-most inactive tmux
-set -g @nested_up_keybind 'M-u'
+set -g @matryoshka_up_keybind 'M-u'
 # keybind to recursively enable all tmux instances
-set -g @nested_up_recursive_keybind 'M-U'
+set -g @matryoshka_up_recursive_keybind 'M-U'
 # status style of inactive tmux
-set -g @nested_inactive_status_style 'fg=colour245,bg=colour238'
+set -g @matryoshka_inactive_status_style 'fg=colour245,bg=colour238'
 
 # name of the option for the style of the status line
 # set if you rely on something other than the default 'status-style' option for it
-set -g @nested_status_style_option 'my-status-style'
+set -g @matryoshka_status_style_option 'my-status-style'
 ```
 
 Include them in your `.tmux.conf` before running the setup.
