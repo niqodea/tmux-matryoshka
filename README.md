@@ -1,6 +1,6 @@
 # tmux-matryoshka
 
-Plugin for nested tmux workflows. A [tmux-suspend](https://github.com/MunifTanjim/tmux-suspend) alternative that supports arbitrary levels of nesting.
+Plugin for nested tmux workflows.
 
 ## Use case
 
@@ -78,6 +78,14 @@ Include them in your `.tmux.conf` before running the setup.
 ## Implementation
 
 This plugin manages nested tmux sessions using a counter environment variable for each tmux instance in the nested hierarchy. When a tmux layer is disabled, the counter increments, keeping track of how deep you are in the nested sessions. Re-enabling tmux instances decrements this counter, ensuring they are reactivated in reverse order, which feels intuitive and natural.
+
+## Comparisons with Alternatives
+
+tmux-matryoshka is not the first plugin to streamline nested tmux workflows.
+Here is how it differentiates itself from other known plugins of its kind.
+
+* [tmux-suspend](https://github.com/MunifTanjim/tmux-suspend): tmux-matryoshka supports arbitrary levels of nesting, not just one
+* [nested-tmux](https://github.com/aleclearmind/nested-tmux): tmux-matryoshka works seamlessly for nested tmux sessions also over ssh, not just locally
 
 ## License
 
