@@ -65,8 +65,13 @@ set -g @matryoshka_down_keybind 'M-d'
 set -g @matryoshka_up_keybind 'M-u'
 # keybind to recursively enable all tmux instances
 set -g @matryoshka_up_recursive_keybind 'M-U'
-# status style of inactive tmux
-set -g @matryoshka_inactive_status_style 'fg=colour245,bg=colour238'
+
+# to set the inactive status style, you can choose either to provide a fixed value...
+set -g @matryoshka_inactive_status_style_strategy 'assignment'
+set -g @matryoshka_inactive_status_style 'bg=colour238,fg=colour245'
+# ...or patch the existing status style with sed substitutions
+set -g @matryoshka_inactive_status_style_strategy 'sed'
+set -g @matryoshka_inactive_status_style 's/green/colour238/g; s/black/colour245/g'
 
 # name of the option for the style of the status line
 # set if you rely on something other than the default 'status-style' option for it
