@@ -71,6 +71,14 @@ set -g @matryoshka_inactive_status_style 'fg=colour245,bg=colour238'
 # name of the option for the style of the status line
 # set if you rely on something other than the default 'status-style' option for it
 set -g @matryoshka_status_style_option 'my-status-style'
+
+# you can also choose to replace certain substrings in your style,
+# rather than overriding the entire option
+set -g @matryoshka_inactive_status_style_update_mode 'replace'
+
+# here you'll provide replacements you'd like to use.
+# the format is: before1,after1;before2,after2...
+set -g @matryoshka_inactive_status_style_replacements '#a6a6a6,#a9a9a9;active,inactive'
 ```
 
 Include them in your `.tmux.conf` before running the setup.

@@ -15,8 +15,26 @@ if [ -z "$up_recursive_keybind" ]; then up_recursive_keybind='F3'; fi
 inactive_status_style="$(tmux show-option -gqv @matryoshka_inactive_status_style)"
 if [ -z "$inactive_status_style" ]; then inactive_status_style='fg=colour245,bg=colour238'; fi
 
+inactive_status_update_mode="$(tmux show-option -gqv @matryoshka_inactive_status_style_update_mode)"
+if [ -z "$inactive_status_update_mode" ]; then inactive_status_update_mode='override'; fi
+
 status_style_option="$(tmux show-option -gqv @matryoshka_status_style_option)"
 if [ -z "$status_style_option" ]; then status_style_option='status-style'; fi
+
+inactive_status_style_replacements="$(tmux show-option -gqv @matryoshka_inactive_status_style_replacements)"
+if [ "$inactive_status_update_mode" = "replace" ]; then
+    original_style="$(tmux show-option -gqv $status_style_option)"
+    inactive_status_style="$original_style"
+
+    IFS=';' read -ra PAIRS <<< "$inactive_status_style_replacements"  # Split by semicolon
+	for pair in "${PAIRS[@]}"; do
+        IFS=',' read -ra REPLACE <<< "$pair"  # Split each pair by comma
+        before="${REPLACE[0]}"
+        after="${REPLACE[1]}"
+        inactive_status_style="${inactive_status_style//${before}/${after}}"  # Replace substrings
+    done
+fi
+
 # <<< Keybinds and default values
 
 MATRYOSHKA_COUNTER_ENV_NAME='MATRYOSHKA_COUNTER'
